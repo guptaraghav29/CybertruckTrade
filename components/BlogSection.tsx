@@ -1,8 +1,13 @@
 import React from 'react';
 import { BLOG_POSTS } from '../constants';
 import { ArrowRight } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
 
 const BlogSection: React.FC = () => {
+  // Only show first 3 posts on home page
+  const previewPosts = BLOG_POSTS.slice(0, 3);
+  const navigate = useNavigate();
+
   return (
     <section id="blog" className="py-24 bg-white text-black">
       <div className="max-w-7xl mx-auto px-6">
@@ -13,14 +18,14 @@ const BlogSection: React.FC = () => {
               Updates on fleet management, sustainability reports, and software rollouts.
             </p>
           </div>
-          <a href="#" className="hidden md:flex items-center text-sm font-bold tracking-wide hover:text-tesla-red transition-colors">
+          <Link to="/blog" className="hidden md:flex items-center text-sm font-bold tracking-wide hover:text-tesla-red transition-colors">
             VIEW ALL POSTS <ArrowRight className="ml-2 w-4 h-4" />
-          </a>
+          </Link>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
-          {BLOG_POSTS.map((post) => (
-            <article key={post.id} className="group cursor-pointer">
+          {previewPosts.map((post) => (
+            <article key={post.id} className="group cursor-pointer" onClick={() => navigate(`/blog/${post.id}`)}>
               <div className="aspect-[16/9] bg-zinc-100 overflow-hidden mb-6">
                 <img 
                   src={post.imageUrl} 
@@ -45,9 +50,9 @@ const BlogSection: React.FC = () => {
         </div>
         
         <div className="mt-12 md:hidden">
-            <a href="#" className="flex items-center text-sm font-bold tracking-wide hover:text-tesla-red">
+            <Link to="/blog" className="flex items-center text-sm font-bold tracking-wide hover:text-tesla-red">
             VIEW ALL POSTS <ArrowRight className="ml-2 w-4 h-4" />
-          </a>
+          </Link>
         </div>
       </div>
     </section>
